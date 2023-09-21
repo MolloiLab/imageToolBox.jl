@@ -3,6 +3,16 @@ uuid = "308a64e0-2da8-4ffc-993f-c99ea7c8dc9b"
 authors = ["Wenbo Li <wenboli2016@gmail.com> and contributors"]
 version = "1.0.0-DEV"
 
+[deps]
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+DICOM = "a26e6606-dd52-5f6a-a97f-4f611373d757"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
+NIfTI = "a3a9e032-41b5-5fc4-967a-a6b7a19844d3"
+Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
+Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
+
 [compat]
 julia = "1"
 
