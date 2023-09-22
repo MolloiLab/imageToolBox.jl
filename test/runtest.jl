@@ -1,4 +1,4 @@
-using JuliaNiftyReg
+using imageToolBox
 using Test
 
 @testset "other_tools.jl" begin
