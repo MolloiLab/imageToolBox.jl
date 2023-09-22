@@ -6,14 +6,14 @@ Welcome to the **Medical Image Processing Tools** repository! This repository pr
 
 ## 📌 Table of Contents
 
-- [🔧 Dependencies](#dependencies)
-- [🖼 DICOM Tools](#dicom-tools)
-- [🛠 Other Tools](#other-tools)
-- [🎨 PNG Tools](#png-tools)
+- [🔧 Dependencies](#dependencies-🔧)
+- [🖼 DICOM Tools](#dicom-tools-🖼)
+- [🛠 Other Tools](#other-tools-🛠)
+- [🎨 PNG Tools](#png-tools-🎨)
 
 ---
 
-<a name="dependencies"></a>
+<a name="dependencies-🔧"></a>
 ## 🔧 Dependencies
 
 - 📦 `DICOM`
@@ -25,7 +25,7 @@ Welcome to the **Medical Image Processing Tools** repository! This repository pr
 
 ---
 
-<a name="dicom-tools"></a>
+<a name="dicom-tools-🖼"></a>
 ## 🖼 DICOM Tools
 
 ### 📖 `read_dicom(path_to_file::String)`
@@ -57,7 +57,7 @@ Welcome to the **Medical Image Processing Tools** repository! This repository pr
 
 ---
 
-<a name="other-tools"></a>
+<a name="other-tools-🛠"></a>
 ## 🛠 Other Tools
 
 ### 📖 `save_to_csv(column_names_, data::Matrix, csv_name::String)`
@@ -78,11 +78,72 @@ Welcome to the **Medical Image Processing Tools** repository! This repository pr
 - **Output**:
   - 📅 Last edit time in `Dates` format.
 
-[... Continue with other functions in the same format ...]
+### 📖 `search_files_by_ext(root_dir, file_ext)`
+
+🔍 Recursively looks for all files in folders and subfolders based on file extension.
+
+- **Input**:
+  - 📂 `root_dir`: Root directory.
+  - 📄 `file_ext`: Extension of a file to search for (e.g., ".dcm").
+- **Output**:
+  - 📋 List of found paths.
+
+### 📖 `search_files_by_name(root_dir, file_name)`
+
+🔍 Recursively looks for the target file by name.
+
+- **Input**:
+  - 📂 `root_dir`: Root directory.
+  - 📄 `file_name`: Name of the target file.
+- **Output**:
+  - 📋 Path to the target file (or an empty string if not found).
+
+### 📖 `binary_search_SID(SIDs, target)`
+
+🔍 Looks for a target element in an array (binary search). The input array should be sorted.
+
+- **Input**:
+  - 📋 `SIDs`: List containing the target.
+  - 🎯 `target`: The target element.
+- **Output**:
+  - 🔢 Index of the target in the SID list (-1 if not found).
+
+### 📖 `zoom_pixel_values(img)`
+
+🔍 Zooms pixel values of an image to the range [0, 1].
+
+- **Input**:
+  - 🖼 `img`: Input image.
+- **Output**:
+  - 🖼 Zoomed image.
+
+### 📖 `copy_file(old_path::String, new_path::String)`
+
+🔍 Copies a file to a new path.
+
+- **Input**:
+  - 📂 `old_path`: Old path of the file.
+  - 📂 `new_path`: New path for the file.
+
+### 📖 `clean_directory(directory::String)`
+
+🔍 Deletes everything inside a directory.
+
+- **Input**:
+  - 📂 `directory`: Directory to be cleaned.
+
+### 📖 `normalize_img(img)`
+
+🔍 Normalizes an image, making the mean of all pixel values 0 and the standard deviation 1.
+
+- **Input**:
+  - 🖼 `img`: Input image.
+- **Output**:
+  - 🖼 Normalized image.
 
 ---
 
-<a name="png-tools"></a>
+<a name="png-tools-🎨"></a>
 ## 🎨 PNG Tools
 
 ### 📖 `read_png(path_to_file::String)`
