@@ -13,6 +13,7 @@ Welcome to the **Medical Image Processing Tools** repository! This repository pr
 
 ---
 
+<a name="dependencies"></a>
 ## 🔧 Dependencies
 
 - 📦 `DICOM`
@@ -24,6 +25,7 @@ Welcome to the **Medical Image Processing Tools** repository! This repository pr
 
 ---
 
+<a name="dicom-tools"></a>
 ## 🖼 DICOM Tools
 
 ### 📖 `read_dicom(path_to_file::String)`
@@ -55,6 +57,7 @@ Welcome to the **Medical Image Processing Tools** repository! This repository pr
 
 ---
 
+<a name="other-tools"></a>
 ## 🛠 Other Tools
 
 ### 📖 `save_to_csv(column_names_, data::Matrix, csv_name::String)`
@@ -79,6 +82,7 @@ Welcome to the **Medical Image Processing Tools** repository! This repository pr
 
 ---
 
+<a name="png-tools"></a>
 ## 🎨 PNG Tools
 
 ### 📖 `read_png(path_to_file::String)`
