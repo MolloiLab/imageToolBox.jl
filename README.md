@@ -60,6 +60,16 @@ Welcome to the **Medical Image Processing Tools** repository! This repository pr
 <a name="other-tools-🛠"></a>
 ## 🛠 Other Tools
 
+### 📖 `histogram_equalization(img; mask=nothing)`
+
+🔍 Applies histogram equalization to the image. If the optional `mask` is provided, it will still process the whole image but only based on the mask area.
+
+- **Input**:
+  - 🖼 `img`: Image to be processed.
+  - (optional) 🎭 `mask`: Mask containing only 1 and 0.
+- **Output**:
+  - 🖼 Processed image.
+  
 ### 📖 `save_to_csv(column_names_, data::Matrix, csv_name::String)`
 
 💾 Saves data to a local CSV file.
@@ -108,12 +118,13 @@ Welcome to the **Medical Image Processing Tools** repository! This repository pr
 - **Output**:
   - 🔢 Index of the target in the SID list (-1 if not found).
 
-### 📖 `zoom_pixel_values(img)`
+### 📖 `zoom_pixel_values(img; mask=nothing)`
 
-🔍 Zooms pixel values of an image to the range [0, 1].
+🔍 Zooms pixel values of an image to the range [0, 1]. If the optional `mask` is provided, it will still process the whole image but only based on the mask area.
 
 - **Input**:
   - 🖼 `img`: Input image.
+  - (optional) 🎭 `mask`: Mask containing only 1 and 0.
 - **Output**:
   - 🖼 Zoomed image.
 
@@ -132,14 +143,15 @@ Welcome to the **Medical Image Processing Tools** repository! This repository pr
 - **Input**:
   - 📂 `directory`: Directory to be cleaned.
 
-### 📖 `normalize_img(img)`
+### 📖 `normalize_img(img; mask=nothing)`
 
-🔍 Normalizes an image, making the mean of all pixel values 0 and the standard deviation 1.
+🔍 Changes the image, making the mean of all pixel values to 0, and std to 1. If the optional `mask` is provided, it will still process the whole image but only based on the mask area.
 
 - **Input**:
-  - 🖼 `img`: Input image.
+  - 🖼 `img`: Image to be processed.
+  - (optional) 🎭 `mask`: Mask containing only 1 and 0.
 - **Output**:
-  - 🖼 Normalized image.
+  - 🖼 Processed image.
 
 ---
 

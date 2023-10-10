@@ -178,15 +178,25 @@ function binary_search_SID(SIDs, target)
 end
 
 """
-    This function zoom pixel values of a image to range of [0, 1].
+    This function zoom pixel values of a image to range of [0, 1]. If the optional `mask` is provided, it will still process the whole image but only based on the mask area.
     - input:
         1. Matrix: the input image
+        2. (optional) Array: mask, which contains only 1 and 0.
     - output: 
         1. Matrix: the zoomed image.
 """
-function zoom_pixel_values(img)
-    a, b = minimum(img), maximum(img)
+function zoom_pixel_values(img; mask=nothing)
+    selection = (mask == nothing) ? nothing : findall(isone, mask)
+    # Determine if we're working on the whole image or a selection
+    working_img = (selection !== nothing) ? img[selection] : img
+    
+    a, b = minimum(working_img), maximum(working_img)
     img_ = (img .- a) ./ (b - a)
+    
+    if mask !== nothing
+        img_ = img_ .* mask
+    end
+
     return img_
 end
 
@@ -234,13 +244,83 @@ function clean_directory(directory::String)
 end
 
 """
-    This function changes the image, making mean of all pixel values to 0, and std to 1
+    This function changes the image, making mean of all pixel values to 0, and std to 1. If the optional `mask` is provided, it will still process the whole image but only based on the mask area.
+    - input:
+        1. Array: image to be processed.
+        2. (optional) Array: mask, which contains only 1 and 0.
+    - output:
+        1. Array: The processed image.
 """
-function normalize_img(img)
-    m = maximum(img)
-    img = m .- img
-    a = mean(img)
-    s = std(img)
-    img = (img .- a) ./ s 
-    return img
+function normalize_img(img; mask=nothing)
+    if mask !== nothing
+        selection = findall(isone, mask)
+        selected_area = img[selection]
+        m = maximum(selected_area)
+        a = mean(selected_area)
+        s = std(selected_area)
+    else
+        m = maximum(img)
+        a = mean(img)
+        s = std(img)
+    end
+
+    img_ = m .- img
+    img_ = (img_ .- a) ./ s 
+
+    if mask !== nothing
+        img_ = img_.*mask
+    end
+
+    return img_
+end
+
+"""
+    This function applies histogram equalization to the image. If the optional `mask` is provided, it will still process the whole image but only based on the mask area.
+    - input:
+        1. Array: image to be processed.
+        2. (optional) Array: mask, which contains only 1 and 0.
+    - output:
+        1. Array: The processed image.
+"""
+function histogram_equalization(img; mask=nothing)
+    selection = (mask == nothing) ? nothing : findall(isone, mask)
+    img = zoom_pixel_values(img; mask = mask)
+    # Determine if we're working on the whole image or a selection
+    working_img = (selection !== nothing) ? img[selection] : img
+    len = length(working_img)
+    
+    # Initialize histogram and cumulative histogram
+    nbins = 256
+    hist = zeros(Int, nbins)
+    chist = zeros(Int, nbins)
+    
+    # Compute the histogram
+    for val in working_img
+        bin = Int(floor(val * (nbins - 1)) + 1)
+        hist[bin] += 1
+    end
+    
+    # Compute the cumulative histogram
+    chist[1] = hist[1]
+    for i in 2:nbins
+        chist[i] = chist[i - 1] + hist[i]
+    end
+    
+    # Perform histogram equalization
+    min_chist = minimum(filter(x -> x > 0, chist))
+    total_pixels = len
+    new_img = copy(img)
+    
+    indices = (selection !== nothing) ? selection : 1:length(img)
+    for i in indices
+        bin = Int(floor(img[i] * (nbins - 1)) + 1)
+        new_intensity = (chist[bin] - min_chist) / (total_pixels - min_chist)
+        new_img[i] = Float32(new_intensity)
+    end
+    
+    if mask !== nothing
+        new_img = new_img .* mask
+    end
+
+    return new_img
 end
