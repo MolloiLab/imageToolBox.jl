@@ -251,7 +251,7 @@ end
     - output:
         1. Array: The processed image.
 """
-function normalize_img(img; mask=nothing)
+function normalize_img(img; mask=nothing, invert = false)
     if mask !== nothing
         selection = findall(isone, mask)
         selected_area = img[selection]
@@ -264,7 +264,12 @@ function normalize_img(img; mask=nothing)
         s = std(img)
     end
 
-    img_ = m .- img
+    img_ = deepcopy(img)
+
+    if invert
+    	img_ = m .- img_
+    end
+    
     img_ = (img_ .- a) ./ s 
 
     if mask !== nothing
